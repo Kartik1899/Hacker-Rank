@@ -4,7 +4,7 @@
 #include<string.h>
 
 
-int findBinary(int num,int *arr, int size)
+int findBinary(int num,int *arr, int size)					// finding Binary of a number
 {
     int temp[8];
     int i = 0;
@@ -30,7 +30,7 @@ int findBinary(int num,int *arr, int size)
     return size;
 }
 
-int findDecimal(int *binaryCode)
+int findDecimal(int *binaryCode)						// finding Decimal of a number
 {
     int decimal = 0;
     int j = 5;
@@ -41,26 +41,24 @@ int findDecimal(int *binaryCode)
     return decimal;
 }
 
-char* encode(char *input)
+char* encode(char *input)							// encoding function
 {
     int size = strlen(input);
-
     int asciCodes[size];
-
     for(int i = 0 ; i < size ; i++)
     {
-        asciCodes[i] = (int) input[i];
+        asciCodes[i] = (int) input[i];						// fetching ascii values of all the characters
     }
 
-    char s[64]= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/0123456789";
+
+
+    char s[64]= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/0123456789";			// encoding table string
 
     int binaryData[8*size];
-
     int count = 0;
-
     for(int i = 0 ; i < size ; i++)
     {
-        count = findBinary(asciCodes[i],binaryData,count);
+        count = findBinary(asciCodes[i],binaryData,count);					// getting binary codes
     }
 
 
@@ -72,10 +70,9 @@ char* encode(char *input)
 
 
     int remaining = count % 6;
-
     for(int i = 0 ; i <= count - remaining ; i++)
     {
-        if(count1 % 6 == 0 && count1 != 0)
+        if(count1 % 6 == 0 && count1 != 0)							// inserting encoded character to the result string
         {
             int y = findDecimal(temp);
             finalSize++;
@@ -88,7 +85,7 @@ char* encode(char *input)
     }
     count1 = 0;
 
-    for(int i = count - remaining; i < count ; i++)
+    for(int i = count - remaining; i < count ; i++)						// incase binaryStore size % 6 != 0;
     {
         temp[count1] = binaryData[i];
         count1++;    
@@ -107,7 +104,10 @@ char* encode(char *input)
         count1++;
     }
 
-    if(strlen(input) % 3 == 2)
+
+
+
+    if(strlen(input) % 3 == 2)									// inserting '=' if strlen(input) % 3 == 0
     {
         finalSize++;
         res = (char *)realloc(res, finalSize * sizeof(char));
